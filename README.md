@@ -51,13 +51,13 @@ Welcome! Your trading application is now fully integrated and ready to use. Belo
 
 ### Terminal 1 - Start Backend
 ```bash
-cd "C:\Users\Acme\OneDrive\Desktop\Ghuge Rushikesh\TradingApp\Backend\algo-backend"
+
 python -m uvicorn app.main:app --port 8001 --host 0.0.0.0
 ```
 
 ### Terminal 2 - Start Frontend
 ```bash
-cd "C:\Users\Acme\OneDrive\Desktop\Ghuge Rushikesh\TradingApp\Frontend"
+
 npm run dev
 ```
 
@@ -456,4 +456,4 @@ If you'd like, I can now scan code comments (TODO/FIXME) and open issues and beg
 
 **Version**: 1.0 - Integration Complete
 **Status**: ✅ Production Ready
-**Last Updated**: December 9, 2025
+**Last Updated**: December , 2025
