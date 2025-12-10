@@ -1,0 +1,1 @@
+Fix candlestick logic: proper bullish/bearish direction, filter future data, use end-of-period time

@@ -1,0 +1,13 @@
+{
+  "summary": {
+    "total_trades": 9,
+    "win_trades": 3,
+    "loss_trades": 6,
+    "winrate": 33.33333333333333,
+    "net_pnl_money": 65.65234375,
+    "net_pnl_points": 65.65234375,
+    "max_drawdown_pct": 0.03039331710749756
+  },
+  "trades_count": 9,
+  "equity_curve_count": 201
+}
