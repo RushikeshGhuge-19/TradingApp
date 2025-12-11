@@ -34,7 +34,7 @@ const OpenPositionPanel: React.FC<OpenPositionPanelProps> = ({ status }) => {
             </div>
             
             <div className={`px-4 py-2 rounded text-xs font-bold border ${status.tp_reached 
-                ? 'bg-green-900/20 text-green-400 border-green-500/30' 
+                ? 'bg-[#7300BD]/10 text-[#7300BD] border-[#7300BD]/30' 
                 : 'bg-amber-900/20 text-amber-400 border-amber-500/30'}`}>
                 {status.tp_reached ? 'TP REACHED - TRAILING PROFIT' : 'TP NOT REACHED'}
             </div>

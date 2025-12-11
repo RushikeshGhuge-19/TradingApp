@@ -291,7 +291,7 @@ function StrategyBuilder() {
                 </div>
 
                 {/* Strategy Summary */}
-                <div className="bg-blue-500/10 p-3 rounded border border-blue-500/30 text-xs text-blue-200">
+                <div className="bg-[#7300BD]/10 p-3 rounded border border-[#7300BD]/30 text-xs text-[#7300BD]">
                   <strong>ℹ️ Summary:</strong> This RSI-EMA strategy enters on RSI oversold (40) or overbought (60) levels and exits on profit targets, trailing stops, or trend reversals.
                 </div>
               </div>

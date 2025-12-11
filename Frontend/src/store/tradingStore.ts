@@ -5,8 +5,17 @@
  */
 
 import { create } from 'zustand';
-import { Bar, StrategyParams, TradeRecord, Summary, Marker, OpenPosition, BacktestResult } from '../types/engine';
-import { runBacktest as runBacktestEngine } from './backtest';
+// TODO: Migrate to new rule-dsl types when consolidating engines
+// Temporary local stubs to avoid missing-engine imports during front-end build
+type Bar = any;
+type StrategyParams = any;
+type TradeRecord = any;
+type Summary = any;
+type Marker = any;
+type OpenPosition = any;
+type BacktestResult = any;
+
+// runBacktest engine reference removed; frontend uses `backtestAPI` service instead
 
 interface Strategy {
   id: string;
