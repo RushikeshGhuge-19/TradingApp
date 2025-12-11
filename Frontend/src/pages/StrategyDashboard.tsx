@@ -19,10 +19,10 @@ function StrategyDashboard() {
     start_date: string;
     end_date: string;
   }>({
-    symbol: '^NSEBANK',
+    symbol: 'AAPL',
     timeframe: '1h',
     start_date: '2024-12-01',
-    end_date: '2024-12-10',
+    end_date: '2024-12-20',
   });
 
   // Load strategy config on mount
@@ -37,8 +37,8 @@ function StrategyDashboard() {
           timeframe: config.timeframe,
         }));
         
-        // Set default date range (last 10 days)
-        const endDate = new Date(2024, 11, 10); // Dec 10, 2024 (real historical data)
+        // Set default date range (Dec 1-20, 2024 with good historical data)
+        const endDate = new Date(2024, 11, 20); // Dec 20, 2024
         const startDate = new Date(2024, 11, 1); // Dec 1, 2024
         
         setFormData(prev => ({
@@ -87,29 +87,40 @@ function StrategyDashboard() {
         end_date: formData.end_date,
       };
       
-      console.log('Running backtest with:', backTestRequest);
+      console.log('🔄 Running backtest with:', backTestRequest);
+      console.log('📡 Calling API endpoint: http://127.0.0.1:8001/api/backtest');
+      
       const backTestResult = await runBacktest(backTestRequest);
-      console.log('Backtest result:', backTestResult);
+      console.log('✅ Backtest result received:', backTestResult);
       
       if (!backTestResult || !backTestResult.summary) {
+        console.error('❌ Invalid backtest response structure:', backTestResult);
         throw new Error('Invalid backtest response');
       }
+      
+      console.log('📊 Setting result state with:', {
+        trades: backTestResult.trades?.length,
+        summary: backTestResult.summary,
+      });
       
       setResult(backTestResult);
       
       // Save trades to database so they appear on dashboard
       if (backTestResult.trades && backTestResult.trades.length > 0) {
         try {
+          console.log(`💾 Saving ${backTestResult.trades.length} trades to database...`);
           const saveResult = await saveBacktestTrades(backTestResult.trades);
-          console.log('Trades saved to database:', saveResult);
+          console.log('✅ Trades saved to database:', saveResult);
         } catch (saveErr) {
-          console.error('Warning: Could not save trades to database', saveErr);
+          console.error('⚠️ Warning: Could not save trades to database', saveErr);
           // Don't fail the backtest if saving fails
         }
       }
     } catch (err: any) {
-      console.error('Backtest failed', err);
-      setError(err.message || 'Backtest failed. Check date range and try again.');
+      console.error('❌ Backtest failed:', err);
+      const errorMsg = err.message || 'Backtest failed. Check date range and try again.';
+      console.error('Error details:', errorMsg);
+      setError(errorMsg);
     } finally {
       setBacktesting(false);
     }

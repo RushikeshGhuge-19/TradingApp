@@ -8,6 +8,7 @@ from app.api.routes import equity as equity_router
 from app.api.routes import market as market_router
 from app.api.routes import strategy as strategy_router
 from app.api.routes import backtest as backtest_router
+from app.api.routes import symbols as symbols_router
 from app.services import seed_data
 from app.db import base as db_base
 from app.db import session as db_session
@@ -31,6 +32,7 @@ app.include_router(equity_router.router, prefix="/api/equity_curve", tags=["equi
 app.include_router(market_router.router, prefix="/api/market", tags=["market"])
 app.include_router(strategy_router.router, prefix="/api/strategy", tags=["strategy"])
 app.include_router(backtest_router.router, prefix="/api/backtest", tags=["backtest"])
+app.include_router(symbols_router.router, prefix="/api/symbols", tags=["symbols"])
 
 # Module-level flag to ensure background tasks start only once
 _background_tasks_started = False
