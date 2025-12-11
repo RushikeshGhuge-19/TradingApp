@@ -260,6 +260,28 @@ export const runBacktest = async (request: BacktestRequest): Promise<BacktestRes
   }
 };
 
+export const saveBacktestTrades = async (trades: BacktestTrade[]): Promise<{ status: string; saved_count: number }> => {
+  try {
+    const response = await fetch(`${BACKEND_URL}/trades/save_backtest_trades`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(trades),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.detail || `HTTP ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Failed to save backtest trades', error);
+    throw error;
+  }
+};
+
 // --- MOCK DATA FALLBACK ---
 
 const mockFetchStatus = async (): Promise<FrontendStatus> => {

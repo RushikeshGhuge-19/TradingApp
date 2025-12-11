@@ -90,6 +90,15 @@ async def run_backtest(request: BacktestRequest, db: Session = Depends(get_db)):
             request.end_date
         )
         
+        # If no trades from main strategy, try simple strategy
+        if result.summary.total_trades == 0:
+            logger.info("Main strategy returned no trades, trying simple strategy...")
+            result = await asyncio.to_thread(
+                engine.run_simple_strategy,
+                request.start_date,
+                request.end_date
+            )
+        
         logger.info(f"Backtest completed: {result.summary.total_trades} trades, PnL: {result.summary.net_pnl_money:.2f}")
         
         return result

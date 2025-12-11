@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import Navbar from '../../components/Navbar';
-import { getStrategyConfig, runBacktest, BacktestResult, BacktestTrade } from '../../services/api';
+import { getStrategyConfig, runBacktest, saveBacktestTrades, BacktestResult, BacktestTrade } from '../../services/api';
 
 function StrategyDashboard() {
   const navigate = useNavigate();
@@ -83,8 +83,8 @@ function StrategyDashboard() {
       const backTestRequest = {
         symbol: formData.symbol,
         timeframe: formData.timeframe,
-        start_date: formData.start_date,  // Send as ISO string directly
-        end_date: formData.end_date,      // Send as ISO string directly
+        start_date: formData.start_date,
+        end_date: formData.end_date,
       };
       
       console.log('Running backtest with:', backTestRequest);
@@ -96,6 +96,17 @@ function StrategyDashboard() {
       }
       
       setResult(backTestResult);
+      
+      // Save trades to database so they appear on dashboard
+      if (backTestResult.trades && backTestResult.trades.length > 0) {
+        try {
+          const saveResult = await saveBacktestTrades(backTestResult.trades);
+          console.log('Trades saved to database:', saveResult);
+        } catch (saveErr) {
+          console.error('Warning: Could not save trades to database', saveErr);
+          // Don't fail the backtest if saving fails
+        }
+      }
     } catch (err: any) {
       console.error('Backtest failed', err);
       setError(err.message || 'Backtest failed. Check date range and try again.');
