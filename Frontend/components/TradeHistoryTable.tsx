@@ -36,7 +36,7 @@ const TradeHistoryTable: React.FC<TradeHistoryTableProps> = ({ trades }) => {
                         <td className="px-6 py-4">
                             <span className={`px-2 py-1 rounded text-[10px] font-bold tracking-wide uppercase border ${
                                 trade.direction === 'LONG' 
-                                ? 'bg-green-900/10 text-green-500 border-green-500/20' 
+                                ? 'bg-[#7300BD]/10 text-[#7300BD] border-[#7300BD]/20' 
                                 : 'bg-red-900/10 text-red-500 border-red-500/20'
                             }`}>
                                 {trade.direction}
@@ -51,10 +51,10 @@ const TradeHistoryTable: React.FC<TradeHistoryTableProps> = ({ trades }) => {
                         <td className="px-6 py-4 text-right font-mono text-slate-300">
                             {trade.exit_price?.toFixed(2) || '-'}
                         </td>
-                        <td className={`px-6 py-4 text-right font-bold font-mono ${isProfit ? 'text-green-500' : 'text-red-500'}`}>
+                        <td className={`px-6 py-4 text-right font-bold font-mono ${isProfit ? 'text-[#7300BD]' : 'text-red-500'}`}>
                             {trade.pnl_points ? (trade.pnl_points > 0 ? '+' : '') + trade.pnl_points.toFixed(2) : '-'}
                         </td>
-                        <td className={`px-6 py-4 text-right font-bold font-mono ${isProfit ? 'text-green-500' : 'text-red-500'}`}>
+                        <td className={`px-6 py-4 text-right font-bold font-mono ${isProfit ? 'text-[#7300BD]' : 'text-red-500'}`}>
                             {trade.pnl_money ? trade.pnl_money.toLocaleString('en-IN', { style: 'currency', currency: 'INR' }) : '-'}
                         </td>
                         <td className="px-6 py-4">

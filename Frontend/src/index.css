@@ -7,6 +7,62 @@ body {
   @apply bg-black text-slate-200;
 }
 
+/* Global override: make Tailwind focus/ring color match project purple */
+:root {
+  /* rgb(115 0 189) is #7300BD */
+  --tw-ring-color: rgb(115 0 189 / 0.5);
+}
+
+/* Map common green accent utilities to project purple so UI accents match */
+/* Use !important to override Tailwind-generated utilities in components */
+.bg-green-500 {
+  background-color: #7300BD !important;
+}
+.hover\:bg-green-600:hover,
+.bg-green-600:hover {
+  background-color: #5a007f !important;
+}
+.text-green-700 {
+  color: #7300BD !important;
+}
+.text-green-800 {
+  color: #5a007f !important;
+}
+.border-green-200 {
+  border-color: rgba(115,0,189,0.15) !important;
+}
+.bg-green-50 {
+  background-color: rgba(115,0,189,0.06) !important;
+}
+
+/* If any components use explicit hex green shades, add a fallback rule for common hex */
+[class*="#10b981"] {
+  background-color: #7300BD !important;
+}
+[class*="#16a34a"] {
+  background-color: #7300BD !important;
+}
+
+/* Broad overrides: convert any Tailwind 'green-' utility to the purple theme visually */
+[class*="bg-green"] {
+  background-color: #7300BD !important;
+}
+[class*="text-green"] {
+  color: #7300BD !important;
+}
+[class*="border-green"] {
+  border-color: rgba(115,0,189,0.25) !important;
+}
+
+/* Slightly darker purple for hover/strong states */
+[class*="-green-600"],
+[class*="-green-700"],
+[class*="-green-800"],
+[class*="-green-900"] {
+  color: #5a007f !important;
+  background-color: #5a007f !important;
+}
+
 /* Ensure proper scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;

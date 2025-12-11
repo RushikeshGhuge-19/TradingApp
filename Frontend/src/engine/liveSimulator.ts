@@ -5,7 +5,10 @@
  */
 
 import { Bar, StrategyParams, OpenPosition, TradeRecord } from '../types/engine';
-import { runBacktest } from './backtest';
+// The live simulator should not directly import the full backtest implementation
+// to avoid circular dependencies in the frontend bundle. Use the lightweight
+// `runBacktest` export from `src/engine/backtest.ts` only when needed.
+// import { runBacktest } from './backtest';
 import { useTradingStore } from '../store/tradingStore';
 
 export interface SimulatorTick {

@@ -111,7 +111,7 @@ export const LiveSimulatorPage: React.FC = () => {
               </button>
               <button
                 onClick={handleResume}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded font-semibold"
+                className="px-4 py-2 bg-[#7300BD] hover:bg-[#5b008f] rounded font-semibold"
               >
                 Resume
               </button>

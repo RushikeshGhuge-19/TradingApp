@@ -90,7 +90,7 @@ function StrategyDashboard() {
                   <span className="text-red-400 font-bold">Exit:</span> Take Profit ({strategyConfig?.tp_points || 100} pts), Trailing Stop ({strategyConfig?.trail_offset || 50} pts), EMA ({strategyConfig?.trend_ema || 20}-period)
                 </div>
                 <div>
-                  <span className="text-blue-400 font-bold">Position:</span> Lot Size: {strategyConfig?.lot_size || 1}, Capital: ₹{(result.summary.initial_equity || 100000).toLocaleString('en-IN')}
+                  <span className="text-[#7300BD] font-bold">Position:</span> Lot Size: {strategyConfig?.lot_size || 1}, Capital: ₹{(result.summary.initial_equity || 100000).toLocaleString('en-IN')}
                 </div>
               </div>
             </div>
