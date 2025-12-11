@@ -138,8 +138,8 @@ export default function StrategyBuilderForm({ initialId }: StrategyBuilderFormPr
 
       {/* Error Banner */}
       {error && (
-        <div className="bg-red-50 border border-red-200 px-4 py-3 mx-4 mt-4 rounded-lg">
-          <p className="text-red-700">{error}</p>
+        <div className="bg-red-900/20 border border-red-700/50 px-4 py-3 mx-4 mt-4 rounded-lg">
+          <p className="text-red-400">{error}</p>
         </div>
       )}
 
@@ -237,13 +237,13 @@ export default function StrategyBuilderForm({ initialId }: StrategyBuilderFormPr
                 {validationErrors.map((error, idx) => (
                   <div
                     key={idx}
-                    className={`border-b border-slate-200 p-3 last:border-b-0 ${
-                      error.severity === 'error' ? 'bg-red-50' : 'bg-yellow-50'
+                    className={`border-b border-slate-700 p-3 last:border-b-0 ${
+                      error.severity === 'error' ? 'bg-red-900/20 border-red-700/50' : 'bg-yellow-900/20 border-yellow-700/50'
                     }`}
                   >
                     <div
                       className={`text-xs font-semibold mb-1 ${
-                        error.severity === 'error' ? 'text-red-700' : 'text-yellow-700'
+                        error.severity === 'error' ? 'text-red-400' : 'text-yellow-400'
                       }`}
                     >
                       {error.severity.toUpperCase()}: {error.field}

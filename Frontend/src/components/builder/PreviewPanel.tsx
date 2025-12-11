@@ -109,9 +109,9 @@ export default function PreviewPanel({ strategy }: PreviewPanelProps) {
             </div>
           )}
           {strategy.rules?.exit && (
-            <div className="text-xs bg-red-50 px-2 py-1 rounded border border-red-200">
-              <span className="font-medium text-red-800">Exit:</span>{' '}
-              <span className="text-red-700">{ruleDescription(strategy.rules.exit)}</span>
+            <div className="text-xs bg-red-900/20 px-2 py-1 rounded border border-red-700/50">
+              <span className="font-medium text-red-400">Exit:</span>{' '}
+              <span className="text-red-300">{ruleDescription(strategy.rules.exit)}</span>
             </div>
           )}
         </div>

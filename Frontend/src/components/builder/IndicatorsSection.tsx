@@ -120,18 +120,18 @@ export default function IndicatorsSection({
   return (
     <div className="space-y-6">
       {/* Add New Indicator */}
-      <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-        <h3 className="font-semibold mb-4">Add New Indicator</h3>
+      <div className="bg-slate-900 border border-slate-700 rounded-lg p-4">
+        <h3 className="font-semibold mb-4 text-slate-200">Add New Indicator</h3>
 
         <div className="grid grid-cols-3 gap-4 mb-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium text-slate-300 mb-1">
               Indicator Type
             </label>
             <select
               value={newIndicatorType}
               onChange={(e) => setNewIndicatorType(e.target.value)}
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+              className="w-full px-3 py-2 border border-slate-700 bg-slate-800 text-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
             >
               {indicatorTypes.map((type) => (
                 <option key={type.value} value={type.value}>
@@ -142,7 +142,7 @@ export default function IndicatorsSection({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium text-slate-300 mb-1">
               Indicator ID
             </label>
             <input
@@ -150,7 +150,7 @@ export default function IndicatorsSection({
               value={newIndicatorId}
               onChange={(e) => setNewIndicatorId(e.target.value)}
               placeholder="e.g., rsi14, ema12"
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+              className="w-full px-3 py-2 border border-slate-700 bg-slate-800 text-slate-200 placeholder-slate-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
             />
           </div>
 
@@ -231,11 +231,11 @@ export default function IndicatorsSection({
       </div>
 
       {/* Help */}
-      <div className="bg-[#7300BD]/10 border border-[#7300BD]/20 rounded-lg p-4">
-        <h4 className="font-semibold text-[#7300BD] mb-2">Indicator Chaining</h4>
-        <p className="text-sm text-[#7300BD]">
+      <div className="bg-slate-900 border border-slate-700 rounded-lg p-4">
+        <h4 className="font-semibold text-slate-200 mb-2">Indicator Chaining</h4>
+        <p className="text-sm text-slate-300">
           For indicators like EMA and SMA, you can chain them on other indicators. For example, set
-          source to <code className="bg-white px-1 rounded">indicator:rsi14</code> to calculate
+          source to <code className="bg-slate-800 px-1 rounded text-[#7300BD] font-mono">indicator:rsi14</code> to calculate
           EMA of RSI.
         </p>
       </div>

@@ -138,9 +138,9 @@ export default function QuickBacktestModal({
 
           {/* Error */}
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-              <p className="text-red-700 font-medium">Error</p>
-              <p className="text-red-600 text-sm mt-1">{error}</p>
+            <div className="bg-red-900/20 border border-red-700/50 rounded-lg p-4">
+              <p className="text-red-400 font-medium">Error</p>
+              <p className="text-red-300 text-sm mt-1">{error}</p>
             </div>
           )}
 
