@@ -79,7 +79,7 @@ export default function QuickBacktestModal({
 
         <div className="p-6 space-y-6">
           {/* Parameters */}
-          <div className="bg-slate-50 rounded-lg p-4 space-y-4">
+          <div className="bg-slate-900 rounded-lg p-4 space-y-4">
             <h3 className="font-semibold text-lg text-slate-900">Backtest Parameters</h3>
 
             <div className="grid grid-cols-3 gap-4">
@@ -168,7 +168,7 @@ export default function QuickBacktestModal({
               {activeTab === 'summary' && (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {Object.entries(formatBacktestSummary(result.summary)).map(([key, value]) => (
-                    <div key={key} className="bg-slate-50 rounded-lg p-4">
+                    <div key={key} className="bg-slate-800 rounded-lg p-4">
                       <div className="text-sm text-slate-600 capitalize">{key}</div>
                       <div className="text-xl font-bold text-slate-900 mt-1">{value}</div>
                     </div>
@@ -200,7 +200,7 @@ export default function QuickBacktestModal({
                       </thead>
                       <tbody className="divide-y divide-slate-200">
                         {result.trades.map((trade: any, idx: number) => (
-                          <tr key={idx} className="hover:bg-slate-50">
+                          <tr key={idx} className="hover:bg-slate-800">
                             <td className="px-4 py-2 text-xs">
                               {new Date(trade.entry_time).toLocaleString()}
                             </td>
@@ -236,7 +236,7 @@ export default function QuickBacktestModal({
 
               {/* Equity Curve Tab */}
               {activeTab === 'equity' && (
-                <div className="bg-slate-50 rounded-lg p-4 text-center text-slate-600">
+                <div className="bg-slate-900 rounded-lg p-4 text-center text-slate-400">
                   <p>Equity curve visualization (requires chart library)</p>
                   <p className="text-sm mt-2">
                     Points: {result.equity_curve.length} | Initial: ₹{result.equity_curve[0].equity.toFixed(0)} | Final: ₹{result.equity_curve[result.equity_curve.length - 1].equity.toFixed(0)}

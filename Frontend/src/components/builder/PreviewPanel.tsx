@@ -83,7 +83,7 @@ export default function PreviewPanel({ strategy }: PreviewPanelProps) {
           <h4 className="text-xs font-semibold text-slate-700 uppercase mb-2">Indicators</h4>
           <div className="space-y-1">
             {strategy.indicators.map((ind) => (
-              <div key={ind.id} className="text-xs bg-slate-50 px-2 py-1 rounded">
+              <div key={ind.id} className="text-xs bg-slate-800 px-2 py-1 rounded text-slate-200">
                 <span className="font-medium">{ind.id}</span>{' '}
                 <span className="text-slate-600">({ind.type})</span>
               </div>
@@ -109,7 +109,7 @@ export default function PreviewPanel({ strategy }: PreviewPanelProps) {
             </div>
           )}
           {strategy.rules?.exit && (
-            <div className="text-xs bg-red-50 px-2 py-1 rounded border border-red-200">
+            <div className="text-xs bg-red-900/20 px-2 py-1 rounded border border-red-700/50 text-red-400">
               <span className="font-medium text-red-800">Exit:</span>{' '}
               <span className="text-red-700">{ruleDescription(strategy.rules.exit)}</span>
             </div>

@@ -115,7 +115,7 @@ export default function ConditionsSection({
           {currentRule ? (
             <div>
               <h3 className="font-semibold mb-4">Condition Structure</h3>
-              <pre className="bg-slate-50 p-4 rounded-lg overflow-x-auto text-sm font-mono text-slate-700">
+              <pre className="bg-slate-800 p-4 rounded-lg overflow-x-auto text-sm font-mono text-slate-200">
                 {JSON.stringify(currentRule, null, 2)}
               </pre>
               <p className="text-sm text-slate-600 mt-4">

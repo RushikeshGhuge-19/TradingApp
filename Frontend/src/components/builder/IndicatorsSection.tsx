@@ -120,8 +120,8 @@ export default function IndicatorsSection({
   return (
     <div className="space-y-6">
       {/* Add New Indicator */}
-      <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-        <h3 className="font-semibold mb-4">Add New Indicator</h3>
+      <div className="bg-slate-900 border border-slate-700 rounded-lg p-4">
+        <h3 className="font-semibold mb-4 text-slate-200">Add New Indicator</h3>
 
         <div className="grid grid-cols-3 gap-4 mb-4">
           <div>
