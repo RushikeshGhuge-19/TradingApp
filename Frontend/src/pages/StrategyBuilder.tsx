@@ -234,6 +234,69 @@ function StrategyBuilder() {
               </div>
             </div>
 
+            {/* Trading Logic - Entry & Exit Conditions */}
+            <div className="bg-slate-900/50 p-6 rounded-lg border border-slate-700">
+              <h3 className="text-lg font-semibold text-slate-200 mb-4 flex items-center gap-2">
+                <span>📋</span> Trading Logic & Conditions
+              </h3>
+              
+              <div className="space-y-4">
+                {/* Entry Conditions */}
+                <div className="bg-[#0a0a0a] p-4 rounded border border-green-500/30">
+                  <h4 className="text-sm font-bold text-green-400 mb-3 uppercase tracking-wide">Entry Conditions</h4>
+                  <div className="space-y-2 text-sm text-slate-300">
+                    <div className="flex items-start gap-2">
+                      <span className="text-green-500 mt-0.5">✓</span>
+                      <div>
+                        <strong>LONG Entry:</strong> RSI crosses above <strong>40</strong>
+                        <div className="text-xs text-slate-500 mt-1">Triggered when RSI was &le;40 in previous candle and &gt; 40 in current candle</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-green-500 mt-0.5">✓</span>
+                      <div>
+                        <strong>SHORT Entry:</strong> RSI crosses below <strong>60</strong>
+                        <div className="text-xs text-slate-500 mt-1">Triggered when RSI was &ge;60 in previous candle and &lt; 60 in current candle</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Exit Conditions */}
+                <div className="bg-[#0a0a0a] p-4 rounded border border-red-500/30">
+                  <h4 className="text-sm font-bold text-red-400 mb-3 uppercase tracking-wide">Exit Conditions</h4>
+                  <div className="space-y-3 text-sm text-slate-300">
+                    <div className="flex items-start gap-2">
+                      <span className="text-red-500 mt-0.5">✕</span>
+                      <div>
+                        <strong>Take Profit (TP):</strong> {formData.tp_points || 100} points profit
+                        <div className="text-xs text-slate-500 mt-1">LONG: Exit when Close &ge; Entry + TP points | SHORT: Exit when Close &le; Entry - TP points</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-red-500 mt-0.5">✕</span>
+                      <div>
+                        <strong>Trailing Stop:</strong> {formData.trail_offset || 50} points loss
+                        <div className="text-xs text-slate-500 mt-1">LONG: Exit if price drops {formData.trail_offset || 50} points below highest price | SHORT: Exit if price rises {formData.trail_offset || 50} points above lowest price</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-red-500 mt-0.5">✕</span>
+                      <div>
+                        <strong>EMA Exit:</strong> Close crosses Trend EMA ({formData.trend_ema || 20}-period)
+                        <div className="text-xs text-slate-500 mt-1">LONG: Exit when Close &lt; Trend EMA | SHORT: Exit when Close &gt; Trend EMA</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Strategy Summary */}
+                <div className="bg-blue-500/10 p-3 rounded border border-blue-500/30 text-xs text-blue-200">
+                  <strong>ℹ️ Summary:</strong> This RSI-EMA strategy enters on RSI oversold (40) or overbought (60) levels and exits on profit targets, trailing stops, or trend reversals.
+                </div>
+              </div>
+            </div>
+
             {/* Buttons */}
             <div className="flex gap-4 pt-8 border-t border-slate-700">
               <button

@@ -10,7 +10,8 @@ function Navbar() {
   const navItems = [
     { path: '/', label: '📊 Dashboard', icon: '📊' },
     { path: '/strategy', label: '⚙️ Strategy', icon: '⚙️' },
-    { path: '/strategy-dashboard', label: '📈 Backtest', icon: '📈' },
+    { path: '/backtest', label: '🔬 Backtest', icon: '🔬' },
+    { path: '/strategy-dashboard', label: '📈 Results', icon: '📈' },
     { path: '/charts', label: '📉 Charts', icon: '📉' },
   ];
 

@@ -61,12 +61,14 @@ async def run_backtest(request: BacktestRequest, db: Session = Depends(get_db)):
         trend_ema = request.trend_ema or strategy_config.trend_ema
         tp_points = request.tp_points or strategy_config.tp_points
         trail_offset = request.trail_offset or strategy_config.trail_offset
-        lot_size = request.lot_size or strategy_config.lot_size
+        lot_size = request.lot_size or request.quantity or strategy_config.lot_size
+        initial_equity = request.capital or 100000.0
         
         logger.info(
             f"Backtest params: symbol={symbol}, timeframe={timeframe}, "
             f"RSI={rsi_period}, EMA_fast={ema_fast}, EMA_slow={ema_slow}, "
-            f"Trend_EMA={trend_ema}, TP={tp_points}, Trail={trail_offset}, Lot={lot_size}"
+            f"Trend_EMA={trend_ema}, TP={tp_points}, Trail={trail_offset}, "
+            f"Lot={lot_size}, Capital={initial_equity}"
         )
         
         # Create backtest engine
@@ -80,7 +82,7 @@ async def run_backtest(request: BacktestRequest, db: Session = Depends(get_db)):
             tp_points=tp_points,
             trail_offset=trail_offset,
             lot_size=lot_size,
-            initial_equity=100000.0,
+            initial_equity=initial_equity,
         )
         
         # Run backtest in thread pool to avoid blocking

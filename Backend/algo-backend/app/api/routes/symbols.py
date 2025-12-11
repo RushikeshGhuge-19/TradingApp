@@ -8,7 +8,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/symbols", tags=["symbols"])
+router = APIRouter(tags=["symbols"])
 
 # List of commonly traded symbols with their descriptions
 # These are symbols supported by yfinance

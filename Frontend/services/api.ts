@@ -62,6 +62,8 @@ export interface BacktestRequest {
   timeframe: string;
   start_date: Date | string;
   end_date: Date | string;
+  capital?: number;
+  quantity?: number;
   rsi_period?: number;
   ema_fast?: number;
   ema_slow?: number;
@@ -230,6 +232,8 @@ export const runBacktest = async (request: BacktestRequest): Promise<BacktestRes
       timeframe: request.timeframe,
       start_date: formatDate(request.start_date),
       end_date: formatDate(request.end_date),
+      ...(request.capital !== undefined && { capital: request.capital }),
+      ...(request.quantity !== undefined && { quantity: request.quantity }),
       ...(request.rsi_period !== undefined && { rsi_period: request.rsi_period }),
       ...(request.ema_fast !== undefined && { ema_fast: request.ema_fast }),
       ...(request.ema_slow !== undefined && { ema_slow: request.ema_slow }),
