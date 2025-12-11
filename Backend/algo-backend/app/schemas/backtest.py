@@ -11,10 +11,6 @@ class BacktestRequest(BaseModel):
     start_date: date
     end_date: date
     
-    # Position sizing
-    capital: Optional[float] = 100000.0  # Initial capital in rupees
-    quantity: Optional[int] = 1  # Number of units/lots
-    
     # Optional overrides (if not provided, will use StrategyConfig defaults)
     rsi_period: Optional[int] = None
     ema_fast: Optional[int] = None
