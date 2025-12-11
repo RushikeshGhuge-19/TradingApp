@@ -18,14 +18,30 @@ router = APIRouter()
 
 @router.get("/", response_model=StatusResponse)
 async def get_status(db: Session = Depends(get_db_dep)):
+    """
+    Get current trading status.
+    
+    Fetches live price from market data service and returns position/equity status.
+    Safe defaults returned when market data unavailable.
+    """
     # Run blocking yfinance call in thread to avoid blocking event loop
-    last_price, last_time = await asyncio.to_thread(get_last_price, DEFAULT_SYMBOL)
+    try:
+        last_price, last_time = await asyncio.to_thread(get_last_price, DEFAULT_SYMBOL)
+        if last_price is not None:
+            logger.info(f"Market data: {DEFAULT_SYMBOL} = {last_price:.2f} at {last_time}")
+        else:
+            logger.warning(f"Market data: {DEFAULT_SYMBOL} returned None (no recent data)")
+    except Exception as e:
+        logger.error(f"Market data fetch failed: {e}")
+        last_price, last_time = None, None
 
     # Try to fetch a position state from DB
     pos = db.query(PositionState).first()
 
     # If no position state, return mocked/clean default with real price
     if not pos:
+        default_price = last_price if last_price is not None else 0.0
+        logger.debug(f"No position state in DB, returning defaults (price={default_price})")
         return {
             "symbol": DEFAULT_SYMBOL,
             "timeframe": "15m",
@@ -33,7 +49,7 @@ async def get_status(db: Session = Depends(get_db_dep)):
             "lots": 0,
             "entry_time": None,
             "entry_price": None,
-            "current_price": last_price if last_price is not None else 0.0,
+            "current_price": default_price,
             "last_price_time": last_time,
             "pnl_points": 0.0,
             "pnl_money": 0.0,
@@ -51,6 +67,12 @@ async def get_status(db: Session = Depends(get_db_dep)):
     wins = db.query(Trade).filter(Trade.pnl_points > 0).count()
     total = db.query(Trade).count()
     winrate = (wins / total * 100) if total > 0 else 0.0
+    
+    current_price = last_price if last_price is not None else pos.current_price
+    logger.debug(
+        f"Status: pos={pos.position} lots={pos.lots} price={current_price:.2f} "
+        f"today_pnl={today_pnl:.2f} wins={wins}/{total}"
+    )
 
     return {
         "symbol": pos.symbol,
@@ -59,7 +81,7 @@ async def get_status(db: Session = Depends(get_db_dep)):
         "lots": float(pos.lots),
         "entry_time": pos.entry_time,
         "entry_price": pos.entry_price,
-        "current_price": last_price if last_price is not None else pos.current_price,
+        "current_price": current_price,
         "last_price_time": last_time,
         "pnl_points": 0.0,
         "pnl_money": 0.0,
