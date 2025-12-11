@@ -1,0 +1,96 @@
+﻿{
+    "value":  [
+                  {
+                      "symbol":  "BANKNIFTY",
+                      "timeframe":  "1h",
+                      "direction":  "LONG",
+                      "entry_time":  "2024-12-20T15:30:00",
+                      "entry_price":  251.99000549316406,
+                      "exit_time":  "2024-12-20T20:30:00",
+                      "exit_price":  254.58999633789062,
+                      "pnl_points":  2.5999908447265625,
+                      "pnl_money":  2.5999908447265625,
+                      "reason":  "END_OF_BACKTEST",
+                      "id":  7
+                  },
+                  {
+                      "symbol":  "BANKNIFTY",
+                      "timeframe":  "1h",
+                      "direction":  "SHORT",
+                      "entry_time":  "2024-12-18T19:30:00",
+                      "entry_price":  249.89999389648438,
+                      "exit_time":  "2024-12-20T15:30:00",
+                      "exit_price":  251.99000549316406,
+                      "pnl_points":  -2.0900115966796875,
+                      "pnl_money":  -2.0900115966796875,
+                      "reason":  "EMA_EXIT",
+                      "id":  6
+                  },
+                  {
+                      "symbol":  "BANKNIFTY",
+                      "timeframe":  "1h",
+                      "direction":  "LONG",
+                      "entry_time":  "2024-12-13T18:30:00",
+                      "entry_price":  247.91000366210938,
+                      "exit_time":  "2024-12-18T19:30:00",
+                      "exit_price":  249.89999389648438,
+                      "pnl_points":  1.989990234375,
+                      "pnl_money":  1.989990234375,
+                      "reason":  "EMA_EXIT",
+                      "id":  5
+                  },
+                  {
+                      "symbol":  "BANKNIFTY",
+                      "timeframe":  "1h",
+                      "direction":  "SHORT",
+                      "entry_time":  "2024-12-12T16:30:00",
+                      "entry_price":  248.09280395507812,
+                      "exit_time":  "2024-12-12T17:30:00",
+                      "exit_price":  248.52999877929688,
+                      "pnl_points":  -0.43719482421875,
+                      "pnl_money":  -0.43719482421875,
+                      "reason":  "EMA_EXIT",
+                      "id":  4
+                  },
+                  {
+                      "symbol":  "BANKNIFTY",
+                      "timeframe":  "1h",
+                      "direction":  "SHORT",
+                      "entry_time":  "2024-12-11T19:30:00",
+                      "entry_price":  247.14999389648438,
+                      "exit_time":  "2024-12-12T14:30:00",
+                      "exit_price":  247.99000549316406,
+                      "pnl_points":  -0.8400115966796875,
+                      "pnl_money":  -0.8400115966796875,
+                      "reason":  "EMA_EXIT",
+                      "id":  3
+                  },
+                  {
+                      "symbol":  "BANKNIFTY",
+                      "timeframe":  "1h",
+                      "direction":  "SHORT",
+                      "entry_time":  "2024-12-06T18:30:00",
+                      "entry_price":  243.16270446777344,
+                      "exit_time":  "2024-12-06T19:30:00",
+                      "exit_price":  243.0500030517578,
+                      "pnl_points":  0.112701416015625,
+                      "pnl_money":  0.112701416015625,
+                      "reason":  "EMA_EXIT",
+                      "id":  2
+                  },
+                  {
+                      "symbol":  "BANKNIFTY",
+                      "timeframe":  "1h",
+                      "direction":  "SHORT",
+                      "entry_time":  "2024-12-05T18:30:00",
+                      "entry_price":  243.27999877929688,
+                      "exit_time":  "2024-12-05T19:30:00",
+                      "exit_price":  242.9058074951172,
+                      "pnl_points":  0.3741912841796875,
+                      "pnl_money":  0.3741912841796875,
+                      "reason":  "EMA_EXIT",
+                      "id":  1
+                  }
+              ],
+    "Count":  7
+}

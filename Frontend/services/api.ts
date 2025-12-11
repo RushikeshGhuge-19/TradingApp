@@ -62,6 +62,8 @@ export interface BacktestRequest {
   timeframe: string;
   start_date: Date | string;
   end_date: Date | string;
+  capital?: number;
+  quantity?: number;
   rsi_period?: number;
   ema_fast?: number;
   ema_slow?: number;
@@ -230,6 +232,8 @@ export const runBacktest = async (request: BacktestRequest): Promise<BacktestRes
       timeframe: request.timeframe,
       start_date: formatDate(request.start_date),
       end_date: formatDate(request.end_date),
+      ...(request.capital !== undefined && { capital: request.capital }),
+      ...(request.quantity !== undefined && { quantity: request.quantity }),
       ...(request.rsi_period !== undefined && { rsi_period: request.rsi_period }),
       ...(request.ema_fast !== undefined && { ema_fast: request.ema_fast }),
       ...(request.ema_slow !== undefined && { ema_slow: request.ema_slow }),
@@ -256,6 +260,28 @@ export const runBacktest = async (request: BacktestRequest): Promise<BacktestRes
     return await response.json();
   } catch (error) {
     console.error('Backtest request failed', error);
+    throw error;
+  }
+};
+
+export const saveBacktestTrades = async (trades: BacktestTrade[]): Promise<{ status: string; saved_count: number }> => {
+  try {
+    const response = await fetch(`${BACKEND_URL}/trades/save_backtest_trades`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(trades),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.detail || `HTTP ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Failed to save backtest trades', error);
     throw error;
   }
 };

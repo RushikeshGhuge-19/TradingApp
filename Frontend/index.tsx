@@ -5,6 +5,7 @@ import App from './App';
 import ChartPage from './ChartPage';
 import StrategyBuilder from './src/pages/StrategyBuilder';
 import StrategyDashboard from './src/pages/StrategyDashboard';
+import BacktestPage from './src/pages/BacktestPage';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -19,6 +20,7 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/dashboard" element={<App />} />
         <Route path="/charts" element={<ChartPage />} />
+        <Route path="/backtest" element={<BacktestPage />} />
         <Route path="/strategy" element={<StrategyBuilder />} />
         <Route path="/strategy-dashboard" element={<StrategyDashboard />} />
       </Routes>

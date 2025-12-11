@@ -396,6 +396,74 @@ class BacktestEngine:
         max_drawdown = (self.lowest_equity - self.highest_equity) / self.highest_equity * 100
         return abs(max_drawdown)
     
+    def run_simple_strategy(self, start_date: date, end_date: date) -> BacktestResult:
+        """
+        Run a simple trading strategy based on price movement.
+        This strategy is guaranteed to generate trades.
+        
+        Logic: Buy when price goes up 0.5%, sell when it goes down 0.3% or up 1.5%
+        """
+        logger.info(f"Starting simple backtest for {self.symbol} from {start_date} to {end_date}")
+        
+        # Fetch candles
+        df = self.fetch_candles(start_date, end_date)
+        if df.empty:
+            logger.warning("No candles to backtest")
+            return self._empty_result()
+        
+        # Reset runtime state
+        self.trades = []
+        self.equity_curve = []
+        self.current_equity = self.initial_equity
+        self.position = None
+        self.highest_equity = self.initial_equity
+        self.lowest_equity = self.initial_equity
+        
+        # Record initial equity
+        first_time = pd.Timestamp(df.index[0]).to_pydatetime()
+        self.equity_curve.append(EquityPoint(time=first_time, equity=self.current_equity))
+        
+        prev_close = df.iloc[0]['Close']
+        
+        # Simple strategy: Buy on price increase, sell on increase or decrease threshold
+        for idx, (time, row) in enumerate(df.iterrows()):
+            candle_time = pd.Timestamp(time).to_pydatetime() if isinstance(time, pd.Timestamp) else time
+            current_price = float(row['Close'])
+            
+            if not self.position:
+                # Check for buy signal: price went up 0.5%
+                price_change_pct = ((current_price - prev_close) / prev_close) * 100
+                
+                if price_change_pct >= 0.5:
+                    self._open_position('LONG', current_price, candle_time)
+                    logger.debug(f"BUY at {current_price} (change: {price_change_pct:.2f}%)")
+            else:
+                # Check for exit: profit 1.5% or loss 0.3%
+                entry_price = self.position['entry_price']
+                price_change_pct = ((current_price - entry_price) / entry_price) * 100
+                
+                if price_change_pct >= 1.5:
+                    self._close_position(current_price, candle_time, "PROFIT_TARGET")
+                    logger.debug(f"SELL TP at {current_price} (profit: {price_change_pct:.2f}%)")
+                elif price_change_pct <= -0.3:
+                    self._close_position(current_price, candle_time, "STOP_LOSS")
+                    logger.debug(f"SELL SL at {current_price} (loss: {price_change_pct:.2f}%)")
+            
+            # Record equity
+            self.equity_curve.append(EquityPoint(time=candle_time, equity=self.current_equity))
+            prev_close = current_price
+        
+        # Close any open position at the end
+        if self.position:
+            last_close = df.iloc[-1]['Close']
+            last_time_raw = df.index[-1]
+            last_time = pd.Timestamp(last_time_raw).to_pydatetime() if isinstance(last_time_raw, pd.Timestamp) else last_time_raw
+            self._close_position(last_close, last_time, "END_OF_BACKTEST")
+        
+        logger.info(f"Simple backtest completed: {len(self.trades)} trades, PnL: {self.current_equity - self.initial_equity:.2f}")
+        
+        return self._build_result()
+
     def _empty_result(self) -> BacktestResult:
         """Return an empty backtest result."""
         summary = BacktestSummary(

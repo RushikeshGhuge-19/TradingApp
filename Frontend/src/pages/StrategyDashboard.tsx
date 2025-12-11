@@ -2,28 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import Navbar from '../../components/Navbar';
-import { getStrategyConfig, runBacktest, BacktestResult, BacktestTrade } from '../../services/api';
+import { getStrategyConfig, BacktestResult, BacktestTrade } from '../../services/api';
 
 function StrategyDashboard() {
   const navigate = useNavigate();
   const [strategyConfig, setStrategyConfig] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [backtesting, setBacktesting] = useState(false);
   const [result, setResult] = useState<BacktestResult | null>(null);
   const [error, setError] = useState('');
-
-  // Form state
-  const [formData, setFormData] = useState<{
-    symbol: string;
-    timeframe: string;
-    start_date: string;
-    end_date: string;
-  }>({
-    symbol: '^NSEBANK',
-    timeframe: '1h',
-    start_date: '2024-12-01',
-    end_date: '2024-12-10',
-  });
 
   // Load strategy config on mount
   useEffect(() => {
@@ -31,21 +17,18 @@ function StrategyDashboard() {
       try {
         const config = await getStrategyConfig();
         setStrategyConfig(config);
-        setFormData(prev => ({
-          ...prev,
-          symbol: config.symbol,
-          timeframe: config.timeframe,
-        }));
-        
-        // Set default date range (last 10 days)
-        const endDate = new Date(2024, 11, 10); // Dec 10, 2024 (real historical data)
-        const startDate = new Date(2024, 11, 1); // Dec 1, 2024
-        
-        setFormData(prev => ({
-          ...prev,
-          start_date: startDate.toISOString().split('T')[0],
-          end_date: endDate.toISOString().split('T')[0],
-        }));
+
+        // Load last backtest result from localStorage
+        const savedResult = localStorage.getItem('lastBacktestResult');
+        if (savedResult) {
+          try {
+            const parsedResult = JSON.parse(savedResult);
+            setResult(parsedResult);
+            console.log('✅ Loaded backtest result from localStorage');
+          } catch (e) {
+            console.warn('Could not parse saved result:', e);
+          }
+        }
       } catch (err) {
         console.error('Failed to load strategy config', err);
         setError('Failed to load strategy configuration');
@@ -56,53 +39,6 @@ function StrategyDashboard() {
     
     loadConfig();
   }, []);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleRunBacktest = async () => {
-    setBacktesting(true);
-    setError('');
-    setResult(null);  // Clear previous results
-    
-    try {
-      // Validate dates
-      if (!formData.start_date || !formData.end_date) {
-        throw new Error('Please select both start and end dates');
-      }
-
-      if (new Date(formData.start_date) > new Date(formData.end_date)) {
-        throw new Error('Start date must be before end date');
-      }
-      
-      const backTestRequest = {
-        symbol: formData.symbol,
-        timeframe: formData.timeframe,
-        start_date: formData.start_date,  // Send as ISO string directly
-        end_date: formData.end_date,      // Send as ISO string directly
-      };
-      
-      console.log('Running backtest with:', backTestRequest);
-      const backTestResult = await runBacktest(backTestRequest);
-      console.log('Backtest result:', backTestResult);
-      
-      if (!backTestResult || !backTestResult.summary) {
-        throw new Error('Invalid backtest response');
-      }
-      
-      setResult(backTestResult);
-    } catch (err: any) {
-      console.error('Backtest failed', err);
-      setError(err.message || 'Backtest failed. Check date range and try again.');
-    } finally {
-      setBacktesting(false);
-    }
-  };
 
   const getPnlColor = (val: number) => {
     if (val > 0) return 'text-green-500';
@@ -128,114 +64,37 @@ function StrategyDashboard() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Controls Section */}
-        <div className="bg-[#0a0a0a] p-6 rounded-lg border border-white/10 shadow-lg mb-6">
-          <h2 className="text-xl font-bold text-white mb-6">Backtest Configuration</h2>
-          
-          {error && (
-            <div className="mb-6 p-4 rounded text-sm bg-red-500/20 text-red-400 border border-red-500/50">
-              {error}
-            </div>
-          )}
-
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-6">
-            {/* Symbol */}
-            <div>
-              <label className="block text-xs font-bold text-slate-400 uppercase mb-2 tracking-wider">Symbol</label>
-              <input
-                type="text"
-                name="symbol"
-                value={formData.symbol}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded text-white text-sm focus:outline-none focus:border-[#7300BD] transition"
-              />
-            </div>
-
-            {/* Timeframe */}
-            <div>
-              <label className="block text-xs font-bold text-slate-400 uppercase mb-2 tracking-wider">Timeframe</label>
-              <select
-                name="timeframe"
-                value={formData.timeframe}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded text-white text-sm focus:outline-none focus:border-[#7300BD] transition"
-              >
-                <option value="5m">5m</option>
-                <option value="15m">15m</option>
-                <option value="30m">30m</option>
-                <option value="1h">1h</option>
-              </select>
-            </div>
-
-            {/* Start Date */}
-            <div>
-              <label className="block text-xs font-bold text-slate-400 uppercase mb-2 tracking-wider">Start Date</label>
-              <input
-                type="date"
-                name="start_date"
-                value={formData.start_date}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded text-white text-sm focus:outline-none focus:border-[#7300BD] transition"
-              />
-            </div>
-
-            {/* End Date */}
-            <div>
-              <label className="block text-xs font-bold text-slate-400 uppercase mb-2 tracking-wider">End Date</label>
-              <input
-                type="date"
-                name="end_date"
-                value={formData.end_date}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded text-white text-sm focus:outline-none focus:border-[#7300BD] transition"
-              />
-            </div>
-
-            {/* Run Button */}
-            <div className="flex items-end">
-              <button
-                onClick={handleRunBacktest}
-                disabled={backtesting}
-                className="w-full px-4 py-2 bg-[#7300BD] hover:bg-[#6100a0] disabled:opacity-50 text-white font-bold rounded text-sm transition"
-              >
-                {backtesting ? 'Running...' : 'Run Backtest'}
-              </button>
-            </div>
-          </div>
-
-          {/* Current Strategy Params (Read-only) */}
-          {strategyConfig && (
-            <div className="border-t border-slate-700 pt-6">
-              <p className="text-xs font-bold text-slate-400 uppercase mb-4 tracking-wider">Active Strategy Parameters</p>
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-xs">
-                <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                  <div className="text-slate-400">RSI Period</div>
-                  <div className="text-white font-bold text-lg">{strategyConfig.rsi_period}</div>
-                </div>
-                <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                  <div className="text-slate-400">EMA Fast</div>
-                  <div className="text-white font-bold text-lg">{strategyConfig.ema_fast}</div>
-                </div>
-                <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                  <div className="text-slate-400">EMA Slow</div>
-                  <div className="text-white font-bold text-lg">{strategyConfig.ema_slow}</div>
-                </div>
-                <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                  <div className="text-slate-400">TP Points</div>
-                  <div className="text-white font-bold text-lg">{strategyConfig.tp_points.toFixed(0)}</div>
-                </div>
-                <div className="bg-slate-900/50 p-3 rounded border border-slate-700">
-                  <div className="text-slate-400">Trail Offset</div>
-                  <div className="text-white font-bold text-lg">{strategyConfig.trail_offset.toFixed(0)}</div>
-                </div>
-              </div>
-            </div>
-          )}
+        {/* Run Backtest Button - Redirects to Backtest Page */}
+        <div className="mb-8">
+          <button
+            onClick={() => navigate('/backtest')}
+            className="px-6 py-3 bg-[#7300BD] hover:bg-[#8f00ff] text-white font-bold rounded-lg transition text-lg"
+          >
+            ▶ Run New Backtest
+          </button>
         </div>
 
         {/* Results Section */}
         {result && (
           <>
+            {/* Strategy Logic Info Box */}
+            <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700 mb-6">
+              <h3 className="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-2">
+                <span>📋</span> Entry & Exit Conditions
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs text-slate-400">
+                <div>
+                  <span className="text-green-400 font-bold">Entry:</span> LONG on RSI &gt; 40, SHORT on RSI &lt; 60
+                </div>
+                <div>
+                  <span className="text-red-400 font-bold">Exit:</span> Take Profit ({strategyConfig?.tp_points || 100} pts), Trailing Stop ({strategyConfig?.trail_offset || 50} pts), EMA ({strategyConfig?.trend_ema || 20}-period)
+                </div>
+                <div>
+                  <span className="text-blue-400 font-bold">Position:</span> Lot Size: {strategyConfig?.lot_size || 1}, Capital: ₹{(result.summary.initial_equity || 100000).toLocaleString('en-IN')}
+                </div>
+              </div>
+            </div>
+
             {/* Summary Cards */}
             <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6">
               <div className="bg-[#0a0a0a] p-4 rounded-lg border border-white/10 shadow-lg">
