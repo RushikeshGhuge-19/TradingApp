@@ -131,7 +131,7 @@ export default function IndicatorsSection({
             <select
               value={newIndicatorType}
               onChange={(e) => setNewIndicatorType(e.target.value)}
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+              className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
             >
               {indicatorTypes.map((type) => (
                 <option key={type.value} value={type.value}>
@@ -150,7 +150,7 @@ export default function IndicatorsSection({
               value={newIndicatorId}
               onChange={(e) => setNewIndicatorId(e.target.value)}
               placeholder="e.g., rsi14, ema12"
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+              className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white placeholder-slate-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
             />
           </div>
 
@@ -214,7 +214,7 @@ export default function IndicatorsSection({
                         onChange={(e) =>
                           handleUpdateIndicatorParam(indicator.id, param.name, e.target.value)
                         }
-                        className="w-full px-2 py-1 text-sm border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+                        className="w-full px-2 py-1 text-sm bg-slate-800 border border-slate-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
                       />
                       {param.name === 'source' && (
                         <p className="text-xs text-slate-500 mt-1">

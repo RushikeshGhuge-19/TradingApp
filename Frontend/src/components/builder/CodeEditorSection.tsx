@@ -104,9 +104,9 @@ export default function CodeEditorSection({
 
       {/* Error Display */}
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-          <p className="text-sm text-red-700 font-medium">JSON Error:</p>
-          <p className="text-xs text-red-600 font-mono mt-1">{error}</p>
+        <div className="bg-red-900/20 border border-red-700/50 rounded-lg p-3">
+          <p className="text-sm text-red-400 font-medium">JSON Error:</p>
+          <p className="text-xs text-red-400 font-mono mt-1">{error}</p>
         </div>
       )}
 

@@ -73,7 +73,7 @@ export default function RiskSection({
                 type: e.target.value as any,
               })
             }
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+            className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
           >
             <option value="fixed_lot">Fixed Lot Size</option>
             <option value="percent_capital">Percent of Capital</option>
@@ -91,7 +91,7 @@ export default function RiskSection({
               min="1"
               value={risk.sizing?.lots ?? 1}
               onChange={(e) => handleSizingChange({ lots: parseInt(e.target.value) || 1 })}
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+              className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
             />
           </div>
         )}
@@ -108,7 +108,7 @@ export default function RiskSection({
               step="0.1"
               value={risk.sizing?.percent ?? 2}
               onChange={(e) => handleSizingChange({ percent: parseFloat(e.target.value) || 2 })}
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+              className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
             />
           </div>
         )}
@@ -121,7 +121,7 @@ export default function RiskSection({
               min="1"
               value={risk.sizing?.quantity ?? 100}
               onChange={(e) => handleSizingChange({ quantity: parseInt(e.target.value) || 100 })}
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]/50"
+              className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]/50"
             />
           </div>
         )}
@@ -148,7 +148,7 @@ export default function RiskSection({
               <select
                 value={risk.sl?.type || 'points'}
                 onChange={(e) => handleSlChange({ type: e.target.value as any })}
-                className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+                className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
               >
                 <option value="points">Points</option>
                 <option value="percent">Percent</option>
@@ -165,7 +165,7 @@ export default function RiskSection({
                 step={risk.sl?.type === 'percent' ? '0.1' : '1'}
                 value={risk.sl?.value ?? 20}
                 onChange={(e) => handleSlChange({ value: parseFloat(e.target.value) || 20 })}
-                className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+                className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
               />
             </div>
 
@@ -179,7 +179,7 @@ export default function RiskSection({
                   min="1"
                   value={risk.sl?.atrPeriod ?? 14}
                   onChange={(e) => handleSlChange({ atrPeriod: parseInt(e.target.value) || 14 })}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+                  className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] focus:border-[#7300BD]"
                 />
               </div>
             )}
@@ -208,7 +208,7 @@ export default function RiskSection({
               <select
                 value={risk.tp?.type || 'points'}
                 onChange={(e) => handleTpChange({ type: e.target.value as any })}
-                className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+                className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] focus:border-[#7300BD]"
               >
                 <option value="points">Points</option>
                 <option value="percent">Percent</option>
@@ -222,7 +222,7 @@ export default function RiskSection({
                 step={risk.tp?.type === 'percent' ? '0.1' : '1'}
                 value={risk.tp?.value ?? 50}
                 onChange={(e) => handleTpChange({ value: parseFloat(e.target.value) || 50 })}
-                className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]/50"
+                className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] focus:border-[#7300BD]"
               />
             </div>
 
@@ -247,7 +247,7 @@ export default function RiskSection({
                   type="number"
                   value={risk.tp?.lockOffset ?? 0}
                   onChange={(e) => handleTpChange({ lockOffset: parseInt(e.target.value) || 0 })}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]/50"
+                  className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] focus:border-[#7300BD]"
                 />
               </div>
             )}
@@ -280,7 +280,7 @@ export default function RiskSection({
                 min="1"
                 value={risk.tsl?.offset ?? 50}
                 onChange={(e) => handleTslChange({ offset: parseInt(e.target.value) || 50 })}
-                className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+                className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] focus:border-[#7300BD]"
               />
             </div>
 
@@ -300,7 +300,7 @@ export default function RiskSection({
       </div>
 
       {/* Max Open Positions */}
-      <div className="bg-white border border-slate-300 rounded-lg p-6">
+      <div className="bg-slate-900 border border-slate-700 rounded-lg p-6">
         <h3 className="font-semibold text-lg mb-4">Position Limits</h3>
 
         <div>
@@ -316,7 +316,7 @@ export default function RiskSection({
                 risk: { ...risk, maxOpenPositions: parseInt(e.target.value) || 1 },
               })
             }
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]/50"
+            className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] focus:border-[#7300BD]"
           />
         </div>
       </div>

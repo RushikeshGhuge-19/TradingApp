@@ -40,7 +40,7 @@ export default function ExecutionSection({
           <select
             value={exec.entryFill || 'CLOSE'}
             onChange={(e) => handleExecChange({ entryFill: e.target.value as any })}
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]/50"
+            className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] focus:border-[#7300BD]"
           >
             <option value="CLOSE">Close Price (end of bar)</option>
             <option value="NEXT_OPEN">Next Open (next bar)</option>
@@ -66,7 +66,7 @@ export default function ExecutionSection({
             step="0.5"
             value={exec.slippagePoints ?? 0}
             onChange={(e) => handleExecChange({ slippagePoints: parseFloat(e.target.value) || 0 })}
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]/50"
+            className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] focus:border-[#7300BD]"
           />
           <p className="text-xs text-slate-600 mt-2">
             Additional points added to prices for realism
@@ -87,7 +87,7 @@ export default function ExecutionSection({
                 charges: { ...exec.charges, mode: e.target.value as any },
               })
             }
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]/50"
+            className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] focus:border-[#7300BD]"
           >
             <option value="fixed">Fixed per trade</option>
             <option value="components">Component breakdown</option>
@@ -108,7 +108,7 @@ export default function ExecutionSection({
                   charges: { ...exec.charges, fixedCharge: parseFloat(e.target.value) || 50 },
                 })
               }
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]/50"
+              className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] focus:border-[#7300BD]"
             />
             <p className="text-xs text-slate-600 mt-2">Charge per entry + exit</p>
           </div>
@@ -141,7 +141,7 @@ export default function ExecutionSection({
                       },
                     })
                   }
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]/50"
+                  className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] focus:border-[#7300BD]"
                 />
               </div>
             ))}
@@ -165,7 +165,7 @@ export default function ExecutionSection({
             onChange={(e) =>
               handleExecChange({ contractMultiplier: parseFloat(e.target.value) || 1 })
             }
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]/50"
+            className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] focus:border-[#7300BD]"
           />
           <p className="text-xs text-slate-600 mt-2">
             For index/derivative contracts. E.g., NIFTY lot = 50 points
@@ -186,7 +186,7 @@ export default function ExecutionSection({
             min="1"
             value={exec.lotSize ?? 1}
             onChange={(e) => handleExecChange({ lotSize: parseInt(e.target.value) || 1 })}
-            className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]/50"
+            className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] focus:border-[#7300BD]"
           />
           <p className="text-xs text-slate-600 mt-2">
             Used for position sizing calculations (e.g., NIFTYBANK lot = 1)

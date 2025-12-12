@@ -94,14 +94,14 @@ export default function ConditionsSection({
 
       {/* JSON Editor */}
       {showJsonEditor && (
-        <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-          <label className="block text-sm font-medium text-slate-700 mb-2">
+        <div className="bg-slate-900 border border-slate-700 rounded-lg p-4">
+          <label className="block text-sm font-medium text-slate-200 mb-2">
             {activeRule.toUpperCase()} Condition (JSON)
           </label>
           <textarea
             value={JSON.stringify(currentRule, null, 2)}
             onChange={(e) => handleJsonChange(e.target.value)}
-            className="w-full h-64 px-3 py-2 font-mono text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
+            className="w-full h-64 px-3 py-2 font-mono text-sm bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD]"
           />
           <p className="text-xs text-slate-600 mt-2">
             Edit the JSON directly. Syntax errors will be caught when you switch tabs.

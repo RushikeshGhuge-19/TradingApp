@@ -92,7 +92,7 @@ export default function QuickBacktestModal({
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
                   disabled={isRunning}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] disabled:bg-slate-200"
+                  className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] disabled:bg-slate-700 disabled:text-slate-400"
                 />
               </div>
 
@@ -105,7 +105,7 @@ export default function QuickBacktestModal({
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
                   disabled={isRunning}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] disabled:bg-slate-200"
+                  className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] disabled:bg-slate-700 disabled:text-slate-400"
                 />
               </div>
 
@@ -118,7 +118,7 @@ export default function QuickBacktestModal({
                   value={capital}
                   onChange={(e) => setCapital(parseInt(e.target.value) || 100000)}
                   disabled={isRunning}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] disabled:bg-slate-200"
+                  className="w-full px-3 py-2 bg-slate-800 border border-slate-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7300BD] disabled:bg-slate-700 disabled:text-slate-400"
                 />
               </div>
             </div>
@@ -138,9 +138,9 @@ export default function QuickBacktestModal({
 
           {/* Error */}
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-              <p className="text-red-700 font-medium">Error</p>
-              <p className="text-red-600 text-sm mt-1">{error}</p>
+            <div className="bg-red-900/20 border border-red-700/50 rounded-lg p-4">
+              <p className="text-red-400 font-medium">Error</p>
+              <p className="text-red-400 text-sm mt-1">{error}</p>
             </div>
           )}
 
