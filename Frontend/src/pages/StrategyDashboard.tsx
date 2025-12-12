@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import Navbar from '../../components/Navbar';
+import TradeMarkerChart from '../../components/TradeMarkerChart';
 import { getStrategyConfig, BacktestResult, BacktestTrade } from '../../services/api';
 
 interface ReplayState {
@@ -309,6 +310,13 @@ function StrategyDashboard() {
                     <Line type="monotone" dataKey="equity" stroke="#7300BD" dot={false} isAnimationActive={false} />
                   </LineChart>
                 </ResponsiveContainer>
+              </div>
+            )}
+
+            {/* Trade Marker Chart */}
+            {result.trades.length > 0 && (
+              <div className="mb-6">
+                <TradeMarkerChart trades={result.trades} equityCurve={result.equity_curve} />
               </div>
             )}
 
