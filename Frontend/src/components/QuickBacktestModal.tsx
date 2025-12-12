@@ -220,7 +220,7 @@ export default function QuickBacktestModal({
                             <td className="px-4 py-2 text-center text-xs">{trade.exit_reason}</td>
                             <td
                               className={`px-4 py-2 text-right font-semibold ${
-                                trade.profit_loss > 0 ? 'text-[#7300BD]' : 'text-red-600'
+                                trade.profit_loss > 0 ? 'text-green-500' : 'text-red-500'
                               }`}
                             >
                               {trade.profit_loss > 0 ? '+' : ''}

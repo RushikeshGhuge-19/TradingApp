@@ -51,10 +51,10 @@ const TradeHistoryTable: React.FC<TradeHistoryTableProps> = ({ trades }) => {
                         <td className="px-6 py-4 text-right font-mono text-slate-300">
                             {trade.exit_price?.toFixed(2) || '-'}
                         </td>
-                        <td className={`px-6 py-4 text-right font-bold font-mono ${isProfit ? 'text-[#7300BD]' : 'text-red-500'}`}>
+                        <td className={`px-6 py-4 text-right font-bold font-mono ${isProfit ? 'text-green-500' : 'text-red-500'}`}>
                             {trade.pnl_points ? (trade.pnl_points > 0 ? '+' : '') + trade.pnl_points.toFixed(2) : '-'}
                         </td>
-                        <td className={`px-6 py-4 text-right font-bold font-mono ${isProfit ? 'text-[#7300BD]' : 'text-red-500'}`}>
+                        <td className={`px-6 py-4 text-right font-bold font-mono ${isProfit ? 'text-green-500' : 'text-red-500'}`}>
                             {trade.pnl_money ? trade.pnl_money.toLocaleString('en-IN', { style: 'currency', currency: 'INR' }) : '-'}
                         </td>
                         <td className="px-6 py-4">
